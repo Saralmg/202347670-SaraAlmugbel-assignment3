@@ -1,206 +1,287 @@
 
-# AI Usage Report – Assignment 2
+# AI Usage Report – Assignment 3
+
+**Student:** Sara Almugbel  
+**Student ID:** 202347670  
+**Course:** SWE 363 – Web Engineering  
+**Project:** Advanced Interactive Personal Portfolio
 
 ## 1. Introduction
 
-AI-assisted tools were used during the development of
-Assignment 2 to improve my personal portfolio website.
+AI-assisted tools were used during the development of Assignment 3 to extend my existing personal portfolio website from Assignments 1 and 2.
 
-The main objective was to enhance the existing website
-by implementing interactive JavaScript features and
-improving the overall user experience.
+The main objective was to introduce advanced JavaScript functionality, integrate an external API, improve form validation, and enhance the user experience.
+
+ChatGPT assisted with planning, implementation, debugging, code explanations, testing guidance, and documentation.
 
 ## 2. AI Tool Used
 
 **Tool:** ChatGPT (OpenAI)
 
 **Purpose:**
-- Understanding assignment requirements
-- Planning interactive website features
-- Generating initial HTML, CSS, and JavaScript suggestions
-- Explaining project organization
-- Providing debugging guidance
-- Assisting with documentation
+
+- Understanding Assignment 3 requirements
+- Planning advanced interactive features
+- Generating HTML, CSS, and JavaScript code
+- Implementing GitHub API integration
+- Developing project sorting functionality
+- Combining filtering and sorting
+- Improving contact form validation
+- Troubleshooting implementation problems
+- Explaining JavaScript concepts
+- Preparing assignment documentation
 
 ## 3. How AI Was Used
 
 ### 3.1 Planning and Feature Selection
 
-I used ChatGPT to understand the Assignment 2
-requirements and identify appropriate interactive
-features for my portfolio.
+I used ChatGPT to discuss Assignment 3 requirements and identify suitable features for my existing portfolio.
 
-The selected features were:
-- Dark and light theme switching
-- Dynamic project filtering
-- Contact form validation
-- Hover effects and smooth transitions
+The selected features included:
 
-These features were selected because they improve
-usability while keeping the portfolio simple.
+- GitHub API integration
+- Alphabetical project sorting
+- Combined project filtering and sorting
+- Advanced contact form validation
+- Theme persistence using localStorage
+- Responsive design improvements
+
+These features were selected to extend the functionality of the existing website while preserving its original design.
 
 ### 3.2 HTML Improvements
 
-ChatGPT assisted with organizing the HTML structure
-and adding the elements required for interactivity.
+ChatGPT assisted with modifying the HTML structure to support the new features.
 
 Examples include:
-- Adding a theme toggle button
-- Adding project category filter buttons
-- Assigning IDs and classes for JavaScript interaction
-- Adding status messages for user feedback
+
+- Adding a GitHub Projects section
+- Adding a sorting dropdown
+- Adding a dedicated project container ID
+- Organizing project cards inside the correct container
+- Adding navigation to the GitHub section
+- Adding maximum-length attributes to contact form fields
+
+The final HTML structure separates manually defined project ideas from dynamically loaded GitHub repositories.
 
 ### 3.3 CSS Improvements
 
-ChatGPT provided CSS suggestions for:
-- Dark and light theme color variables
-- Responsive layouts
-- Hover effects
-- Smooth transitions
-- Styling interactive buttons and project cards
+ChatGPT assisted with CSS improvements, including:
+
+- Styling the sorting dropdown
+- Styling GitHub repository cards
+- Maintaining the original burgundy color scheme
+- Improving responsive layouts
+- Ensuring filtered project cards are hidden
+- Preserving hover effects and theme transitions
+
+During debugging, I reviewed the project card styling and corrected CSS structure problems.
+
+The final stylesheet includes a rule that hides filtered-out project cards.
 
 ### 3.4 JavaScript Implementation
 
-ChatGPT assisted with implementing three main features.
+ChatGPT assisted with implementing the main JavaScript features.
 
-**Theme Switching:**
-JavaScript uses classList.toggle() to change
-the website theme. The selected theme is saved
-using localStorage.
+**GitHub API Integration:**
 
-**Project Filtering:**
-JavaScript reads the selected category and
-compares it with each project's data-category
-attribute to determine which cards to display.
+An asynchronous function uses fetch() and async/await to retrieve public repositories from the GitHub REST API.
 
-**Form Validation:**
-JavaScript checks whether the required fields
-are completed and validates the email format
-before displaying feedback.
+The repository information is displayed dynamically using DOM manipulation.
 
-## 4. Debugging and Testing
+**Project Sorting:**
 
-During development, I noticed that clicking the
-project filter buttons did not change the displayed
-projects and the dark mode button did not work.
+JavaScript uses arrays, sort(), and localeCompare() to arrange project cards alphabetically.
 
-I used ChatGPT to understand the issue.
+The original project order is preserved so users can return to the default order.
 
-The problem was that the JavaScript functionality
-had not yet been added.
+**Combined Filtering and Sorting:**
 
-After creating script.js and linking it to
-index.html, I tested the interactive features.
+A shared updateProjects() function handles both features.
 
-The project filters, theme switching, and
-contact form validation worked after adding
-the JavaScript code.
+The function sorts the project cards, applies the selected category filter, and updates the number of visible projects.
+
+**Advanced Contact Form Validation:**
+
+JavaScript validates required fields, minimum lengths, maximum lengths, and basic email formatting.
+
+The form displays error messages or a success confirmation.
+
+**Theme Persistence:**
+
+The existing dark/light mode feature was preserved.
+
+The selected theme is stored using localStorage and restored after refreshing the page.
+
+## 4. Debugging and Problem Solving
+
+Several issues occurred during Assignment 3 development.
+
+### 4.1 Project Sorting Did Not Initially Work
+
+After adding the sorting dropdown and JavaScript logic, selecting alphabetical sorting did not rearrange the project cards as expected.
+
+I used ChatGPT to investigate the problem.
+
+The debugging process included:
+
+- Checking the sorting dropdown
+- Inspecting JavaScript behavior in Safari
+- Reviewing the HTML project container
+- Checking the project card structure
+
+After correcting the HTML structure, alphabetical sorting worked.
+
+### 4.2 Project Filtering Displayed Both Cards
+
+After sorting was fixed, the Campus filter still displayed both project cards.
+
+ChatGPT suggested reviewing the project container and testing the filtering logic.
+
+Several attempts were made to correct the problem.
+
+The issue was resolved after replacing the HTML, CSS, and JavaScript with coordinated versions.
+
+The final JavaScript uses one updateProjects() function for both filtering and sorting.
+
+The CSS explicitly hides cards with the hidden attribute.
+
+### 4.3 CSS Structure Problems
+
+During editing, the project card CSS selector was accidentally moved.
+
+ChatGPT helped identify the misplaced selector and restore the correct CSS rule.
+
+### 4.4 Website Display Problem
+
+At one point, the portfolio appeared as a blank gray page in Safari.
+
+I reopened the local HTML file and confirmed that the website displayed again.
+
+### 4.5 Final Code Revision
+
+After repeated debugging attempts, I requested complete corrected versions of the three main files:
+
+- index.html
+- css/styles.css
+- js/script.js
+
+ChatGPT generated complete replacement code for each file.
+
+I copied the code into Visual Studio Code, saved the files, and manually tested the functionality.
+
+This approach helped ensure the HTML structure, CSS rules, and JavaScript logic were consistent.
 
 ## 5. Understanding the AI Suggestions
 
-The main JavaScript concepts used in this
-assignment include:
+The main technical concepts used in Assignment 3 include:
 
-- addEventListener(): Responds to user actions.
-- querySelectorAll(): Selects multiple HTML elements.
-- classList.toggle(): Adds or removes a CSS class.
-- localStorage: Saves a preference in the browser.
-- preventDefault(): Prevents the form's default submission.
-- textContent: Updates displayed messages.
-- dataset: Reads custom HTML data attributes.
+- addEventListener(): Responds to user interactions.
+- querySelectorAll(): Selects matching HTML elements.
+- dataset: Reads custom data attributes.
+- classList.toggle(): Changes CSS classes.
+- localStorage: Stores theme preferences.
+- preventDefault(): Prevents default form submission.
+- sort(): Sorts JavaScript arrays.
+- localeCompare(): Compares strings alphabetically.
+- appendChild(): Moves existing DOM elements.
+- fetch(): Requests external API data.
+- async/await: Handles asynchronous operations.
+- try/catch: Handles errors.
+- textContent: Inserts text into HTML elements safely.
 
-These concepts demonstrate how JavaScript can
-make a static HTML website interactive.
+These concepts demonstrate how JavaScript can be used to build an interactive website that retrieves and processes external information.
 
 ## 6. Human Review and Modifications
 
-The AI-generated code was added to my project
-through Visual Studio Code.
+I integrated the AI-assisted code into my project using Visual Studio Code.
 
-I reviewed the website in a browser and checked
-the interactive features individually.
+I reviewed the website in Safari and tested its interactive features.
 
-I verified that:
-- Theme switching changes the website appearance.
-- Project filters display the appropriate cards.
-- Contact form validation displays feedback.
-- Navigation links work correctly.
+During development, I:
 
+- Copied and integrated the suggested code
+- Corrected project structure issues
+- Checked the project filters
+- Tested alphabetical sorting
+- Tested filtering and sorting together
+- Verified contact form validation
+- Confirmed that GitHub repositories appeared
+- Tested dark mode persistence after refreshing
+- Updated the project documentation
 
-**Personal Modifications and Testing:**
+I also retained the Projects section heading:
 
-I used Visual Studio Code to integrate the AI-assisted
-HTML, CSS, and JavaScript into my portfolio website.
+"My Project Ideas & Future Innovations"
 
-I organized the project into separate HTML, CSS, and
-JavaScript files to maintain a clear structure.
+This heading clarifies that the manually defined projects are ideas rather than completed applications.
 
-During testing, I noticed that the dark mode button
-and project filtering buttons were not responding.
-After adding the JavaScript file, I refreshed the
-website and tested the features again.
+## 7. Testing and Verification
 
-I confirmed that the dark mode button changes the
-website theme, the project filters display the
-correct project cards, and the contact form provides
-validation feedback.
+The following functionality was manually verified:
 
-I also verified that the navigation links correctly
-direct users to the About, Projects, and Contact
-sections.
+| Feature | Expected Behavior | Result |
+|---|---|---|
+| Dark mode | Switch to dark appearance | Passed |
+| Theme persistence | Remember theme after refresh | Passed |
+| Campus filter | Show Campus Connect only | Passed |
+| Productivity filter | Show Smart Study Planner only | Passed |
+| All filter | Display both projects | Passed |
+| Alphabetical sorting | Rearrange projects by name | Passed |
+| Combined filtering and sorting | Both features operate together | Passed |
+| Valid contact form | Display success confirmation | Passed |
+| GitHub API | Display public repositories | Passed |
 
-These steps helped me understand how HTML elements,
-CSS styling, and JavaScript event listeners work
-together to create an interactive website.
+Additional edge cases and API failure scenarios have not been fully verified.
 
+## 8. Responsible AI Usage
 
-I also revised the Projects section heading to
-"My Project Ideas & Future Innovations" to make it
-clear that the listed projects are concepts rather
-than completed applications.
+ChatGPT was used as a development and learning assistant.
 
+AI-generated code and documentation suggestions were integrated into the project and reviewed through manual testing.
 
-## 7. Responsible AI Usage
+The AI assistance included substantial code generation, debugging, and documentation drafting.
 
-AI was used as a development and learning assistant.
+This report identifies the major areas where AI contributed to the development process.
 
-The suggestions were tested in the browser, and
-the report identifies the parts of the assignment
-that received AI assistance.
-
-The purpose of using AI was to support understanding,
-debugging, and implementation rather than to
-misrepresent AI-generated work as entirely original.
-
-## 8. Conclusion
-
-ChatGPT supported the development of Assignment 2
-by helping transform a static portfolio into an
-interactive website.
-
-The assignment provided practical experience
-with JavaScript event handling, DOM manipulation,
-localStorage, form validation, and user feedback.
-
+The accompanying evidence must contain the complete, unedited AI conversations and required intermediate artifacts.
 
 ## 9. AI Usage Log
 
-The following log records AI assistance used during the development and documentation of Assignment 2. Related activities are grouped below for review; the final log will be expanded as needed to include one entry per AI conversation or AI-generated artifact.
+The following log summarizes AI assistance during Assignment 3.
 
 | Date | AI Tool | Purpose | Files Affected | Human Review and Modifications |
 |---|---|---|---|---|
-| October 2026 — verify exact date | ChatGPT (OpenAI) | Understand Assignment 2 requirements and plan interactive portfolio features | `index.html`, `css/styles.css`, `js/script.js` | Selected the features to include and reviewed the suggested implementation. |
-| October 2026 — verify exact date | ChatGPT (OpenAI) | Generate and explain HTML, CSS, and JavaScript for theme switching, project filtering, and form validation | `index.html`, `css/styles.css`, `js/script.js` | Integrated the code in VS Code, tested the interactive features, and revised the Projects heading. |
-| October 2026 — verify exact date | ChatGPT (OpenAI) | Troubleshoot nonresponsive interactive buttons and organize project files | `index.html`, `js/script.js`, project folders | Added the JavaScript functionality, checked the browser behavior, and corrected file locations. |
-| October 2026 — verify exact date | ChatGPT (OpenAI) | Prepare the README and assignment documentation | `README.md`, `docs/ai-usage-report.md`, `docs/technical-documentation.md` | Reviewed the documentation and corrected duplicate file placement. |
-| October 24, 2026 | ChatGPT (OpenAI) | Review the AI usage report against the instructor's updated requirements | `docs/ai-usage-report.md` | Reviewed the existing report and prepared an additional usage log. |
+| November 20, 2026 | ChatGPT (OpenAI) | Plan Assignment 3 and identify advanced features | Project planning | Selected GitHub API integration, sorting, and improved validation |
+| November 20, 2026 | ChatGPT (OpenAI) | Implement GitHub API integration | index.html, js/script.js | Added the code and verified that repositories appeared |
+| November 20, 2026 | ChatGPT (OpenAI) | Implement alphabetical project sorting | index.html, js/script.js | Tested the sorting dropdown and investigated incorrect ordering |
+| November 20, 2026 | ChatGPT (OpenAI) | Debug project filtering and HTML structure | index.html, css/styles.css, js/script.js | Inspected project containers and tested filtering behavior |
+| November 20, 2026 | ChatGPT (OpenAI) | Rewrite and correct the three main website files | index.html, css/styles.css, js/script.js | Replaced the files in VS Code and tested the website |
+| November 20, 2026 | ChatGPT (OpenAI) | Update README and technical documentation | README.md, docs/technical-documentation.md | Copied the updated documentation into the project |
+| November 20, 2026 | ChatGPT (OpenAI) | Prepare Assignment 3 AI usage report | docs/ai-usage-report.md | Review the report and attach the required AI evidence before submission |
 
+The entries above summarize the known development activities. They do not replace the complete conversation evidence required by the assignment.
 
-## 10. AI Usage Declaration
+## 10. AI Evidence
 
-I declare that this report and the attached evidence document all of my AI use in this assignment, with complete and unedited conversations, and that I understand and can explain all the code I submitted. I understand that undeclared AI use or a false declaration will be treated as plagiarism according to KFUPM regulations.
+The AI evidence submission should include:
+
+- Complete, unedited ChatGPT conversations used for Assignment 3
+- AI-generated code and intermediate artifacts, where required
+- Evidence of debugging and code revisions
+- The final AI usage report
+- Any additional materials specified by the assignment instructions
+
+The evidence should be organized and included in the required submission format.
+
+## 11. AI Usage Declaration
+
+I acknowledge that ChatGPT was used extensively during the development of Assignment 3, including code generation, debugging, explanations, and documentation drafting.
+
+I understand that all AI assistance must be disclosed accurately and supported by the evidence required by the instructor.
+
+Before submission, I will verify that the evidence is complete and unedited and that I can explain the submitted code.
 
 **Name:** Sara Almugbel  
 **Student ID:** 202347670  
-**Date:** October 24, 2026  
-**Signature:** Sara Almugbel
+**Date:** November 20, 2026  
+**Signature:** [Sign after verifying the declaration and evidence]

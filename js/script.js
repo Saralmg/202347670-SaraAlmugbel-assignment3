@@ -1,14 +1,18 @@
 
 /* ======================================
-   Assignment 2 - Interactive Features
-   Sara Almugbel
+   Sara Almugbel - Portfolio
+   Assignment 3: Advanced Functionality
    ====================================== */
 
+"use strict";
+
+// ======================================
 // FEATURE 1: DARK / LIGHT MODE
+// ======================================
 
 const themeButton = document.getElementById("theme-toggle");
 
-// Load the previously saved theme
+// Restore the visitor's saved theme
 try {
   const savedTheme = localStorage.getItem("portfolio-theme");
 
@@ -19,7 +23,7 @@ try {
   console.warn("Could not load saved theme:", error);
 }
 
-// Update the button label
+// Update the theme button
 function updateThemeButton() {
   const isDark = document.body.classList.contains("dark");
 
@@ -29,17 +33,15 @@ function updateThemeButton() {
 
 updateThemeButton();
 
-// Switch theme when clicked
+// Change theme and save the preference
 themeButton.addEventListener("click", () => {
   document.body.classList.toggle("dark");
-
   updateThemeButton();
 
   const selectedTheme = document.body.classList.contains("dark")
     ? "dark"
     : "light";
 
-  // Save preference for future visits
   try {
     localStorage.setItem("portfolio-theme", selectedTheme);
   } catch (error) {
@@ -48,30 +50,83 @@ themeButton.addEventListener("click", () => {
 });
 
 
+// ======================================
 // FEATURE 2: PROJECT FILTERING
+// FEATURE 3: PROJECT SORTING
+// ======================================
 
-const filterButtons = document.querySelectorAll(".filter");
-const projectCards = document.querySelectorAll(".project-card");
+// Both features use the same project container
+const projectsContainer = document.getElementById("project-list");
+const projectCards = Array.from(
+  projectsContainer.querySelectorAll(".project-card")
+);
+
+const filterButtons = document.querySelectorAll("#projects .filter");
+const projectSort = document.getElementById("project-sort");
 const projectStatus = document.getElementById("projects-status");
 
+// Preserve the original project order
+const originalProjects = [...projectCards];
+
+// Keep track of the selected category
+let selectedCategory = "all";
+
+// Apply filtering and sorting together
+function updateProjects() {
+  const sortOption = projectSort.value;
+
+  // Create a copy so the original order is preserved
+  const sortedProjects = [...originalProjects];
+
+  // Sort projects alphabetically
+  if (sortOption === "az") {
+    sortedProjects.sort((a, b) => {
+      const nameA = a.querySelector("h3").textContent.trim();
+      const nameB = b.querySelector("h3").textContent.trim();
+
+      return nameA.localeCompare(nameB);
+    });
+  } else if (sortOption === "za") {
+    sortedProjects.sort((a, b) => {
+      const nameA = a.querySelector("h3").textContent.trim();
+      const nameB = b.querySelector("h3").textContent.trim();
+
+      return nameB.localeCompare(nameA);
+    });
+  }
+
+  // Reorder the cards inside the project container
+  sortedProjects.forEach((card) => {
+    projectsContainer.appendChild(card);
+  });
+
+  let visibleProjects = 0;
+
+  // Show only projects matching the selected category
+  projectCards.forEach((card) => {
+    const matches =
+      selectedCategory === "all" ||
+      card.dataset.category === selectedCategory;
+
+    card.hidden = !matches;
+
+    if (matches) {
+      visibleProjects++;
+    }
+  });
+
+  // Update the accessible status message
+  projectStatus.textContent =
+    visibleProjects === 0
+      ? "No projects found. Please select another category."
+      : `Showing ${visibleProjects} project(s).`;
+}
+
+// Handle category filter buttons
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const selectedCategory = button.dataset.filter;
-    let visibleProjects = 0;
+    selectedCategory = button.dataset.filter;
 
-    projectCards.forEach((card) => {
-      const matches =
-        selectedCategory === "all" ||
-        card.dataset.category === selectedCategory;
-
-      card.hidden = !matches;
-
-      if (matches) {
-        visibleProjects++;
-      }
-    });
-
-    // Highlight the selected filter
     filterButtons.forEach((filter) => {
       const isSelected = filter === button;
 
@@ -79,36 +134,51 @@ filterButtons.forEach((button) => {
       filter.setAttribute("aria-pressed", String(isSelected));
     });
 
-    // Give the visitor feedback
-    if (visibleProjects === 0) {
-      projectStatus.textContent =
-        "No projects found. Please select another category.";
-    } else {
-      projectStatus.textContent =
-        `Showing ${visibleProjects} project(s).`;
-    }
+    updateProjects();
   });
 });
 
+// Handle sorting dropdown
+projectSort.addEventListener("change", updateProjects);
 
-// FEATURE 3: CONTACT FORM VALIDATION
+// Display projects when the page first loads
+updateProjects();
+
+
+// ======================================
+// FEATURE 4: ADVANCED CONTACT VALIDATION
+// ======================================
 
 const contactForm = document.getElementById("contact-form");
 const formMessage = document.getElementById("form-message");
 
+function showFormMessage(message, type) {
+  formMessage.className = type;
+  formMessage.textContent = message;
+}
+
 contactForm.addEventListener("submit", (event) => {
-  // Prevent the page from reloading
   event.preventDefault();
 
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const message = document.getElementById("message").value.trim();
 
-  // Check for empty fields
+  // Check required fields
   if (!name || !email || !message) {
-    formMessage.className = "error";
-    formMessage.textContent =
-      "Please fill in all fields before submitting.";
+    showFormMessage(
+      "Please fill in all fields before submitting.",
+      "error"
+    );
+    return;
+  }
+
+  // Name must contain at least two characters
+  if (name.length < 2) {
+    showFormMessage(
+      "Please enter a name with at least 2 characters.",
+      "error"
+    );
     return;
   }
 
@@ -116,18 +186,100 @@ contactForm.addEventListener("submit", (event) => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailPattern.test(email)) {
-    formMessage.className = "error";
-    formMessage.textContent =
-      "Please enter a valid email address.";
+    showFormMessage(
+      "Please enter a valid email address.",
+      "error"
+    );
     return;
   }
 
-  // Display confirmation
-  formMessage.className = "success";
-  formMessage.textContent =
-    `Thank you, ${name}! Your message was validated successfully. ` +
-    "This demonstration does not send emails.";
+  // Message must contain at least ten characters
+  if (message.length < 10) {
+    showFormMessage(
+      "Your message must contain at least 10 characters.",
+      "error"
+    );
+    return;
+  }
 
-  // Clear the form
+  // Check maximum field lengths
+  if (name.length > 80 || email.length > 254 || message.length > 2000) {
+    showFormMessage(
+      "One or more fields exceed the maximum allowed length.",
+      "error"
+    );
+    return;
+  }
+
+  // Show confirmation
+  showFormMessage(
+    `Thank you, ${name}! Your message was validated successfully. ` +
+    "This demonstration does not send emails.",
+    "success"
+  );
+
   contactForm.reset();
 });
+
+
+// ======================================
+// FEATURE 5: GITHUB API INTEGRATION
+// ======================================
+
+const githubRepos = document.getElementById("github-repos");
+const githubStatus = document.getElementById("github-status");
+
+// Fetch public GitHub repositories
+async function loadGitHubProjects() {
+  githubStatus.textContent = "Loading GitHub projects...";
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/users/Saralmg/repos?sort=updated&per_page=6"
+    );
+
+    if (!response.ok) {
+      throw new Error(`GitHub API returned status ${response.status}`);
+    }
+
+    const repositories = await response.json();
+
+    // Remove previously displayed repository cards
+    githubRepos.replaceChildren();
+
+    repositories.forEach((repo) => {
+      const card = document.createElement("article");
+      card.className = "project-card";
+
+      const title = document.createElement("h3");
+      title.textContent = repo.name;
+
+      const description = document.createElement("p");
+      description.textContent =
+        repo.description || "No description available.";
+
+      const link = document.createElement("a");
+      link.href = repo.html_url;
+      link.textContent = "View on GitHub";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      card.append(title, description, link);
+      githubRepos.appendChild(card);
+    });
+
+    githubStatus.textContent =
+      repositories.length > 0
+        ? `Showing ${repositories.length} GitHub repositories.`
+        : "No public repositories found.";
+
+  } catch (error) {
+    githubStatus.textContent =
+      "Unable to load GitHub projects. Please try again later.";
+
+    console.error("GitHub API error:", error);
+  }
+}
+
+// Load repositories when the page opens
+loadGitHubProjects();

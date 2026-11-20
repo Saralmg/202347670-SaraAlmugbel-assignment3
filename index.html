@@ -21,6 +21,7 @@
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#github-projects">GitHub</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
 
@@ -48,31 +49,52 @@
 
     <!-- Projects -->
     <section id="projects">
-      <h2>My Project Ideas & Future Innovations</h2>
+      <h2>My Project Ideas &amp; Future Innovations</h2>
 
       <p>
         Explore my project ideas using the category buttons below.
       </p>
 
-      <!-- Interactive Project Filters -->
+      <!-- Project Filters -->
       <div class="filters" role="group" aria-label="Project filters">
-        <button class="filter active" data-filter="all"
-                type="button" aria-pressed="true">
+        <button
+          class="filter active"
+          data-filter="all"
+          type="button"
+          aria-pressed="true">
           All
         </button>
 
-        <button class="filter" data-filter="productivity"
-                type="button" aria-pressed="false">
+        <button
+          class="filter"
+          data-filter="productivity"
+          type="button"
+          aria-pressed="false">
           Productivity
         </button>
 
-        <button class="filter" data-filter="campus"
-                type="button" aria-pressed="false">
+        <button
+          class="filter"
+          data-filter="campus"
+          type="button"
+          aria-pressed="false">
           Campus
         </button>
       </div>
 
-      <div class="projects-container">
+      <!-- Project Sorting -->
+      <div class="sort-container">
+        <label for="project-sort">Sort projects by:</label>
+
+        <select id="project-sort">
+          <option value="default">Default Order</option>
+          <option value="az">Name (A–Z)</option>
+          <option value="za">Name (Z–A)</option>
+        </select>
+      </div>
+
+      <!-- Project Cards -->
+      <div class="projects-container" id="project-list">
 
         <!-- Project 1 -->
         <article class="project-card" data-category="productivity">
@@ -100,6 +122,23 @@
       <p id="projects-status" role="status" aria-live="polite"></p>
     </section>
 
+    <!-- GitHub API Projects -->
+    <section id="github-projects">
+      <h2>My GitHub Projects</h2>
+
+      <p>
+        Explore my latest coding projects directly from GitHub.
+      </p>
+
+      <div id="github-repos" class="projects-container">
+        <!-- Repositories are loaded using JavaScript -->
+      </div>
+
+      <p id="github-status" role="status" aria-live="polite">
+        Loading GitHub projects...
+      </p>
+    </section>
+
     <!-- Contact -->
     <section id="contact">
       <h2>Contact Me</h2>
@@ -118,6 +157,7 @@
           id="name"
           name="name"
           placeholder="Enter your name"
+          maxlength="80"
           required
         >
 
@@ -127,6 +167,7 @@
           id="email"
           name="email"
           placeholder="Enter your email"
+          maxlength="254"
           required
         >
 
@@ -136,6 +177,7 @@
           name="message"
           rows="5"
           placeholder="Write your message"
+          maxlength="2000"
           required
         ></textarea>
 

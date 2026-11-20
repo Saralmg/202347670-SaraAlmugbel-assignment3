@@ -1,10 +1,10 @@
 
-/* ==================================
+/* ======================================
    Sara Almugbel - Portfolio
-   Assignment 2: Interactive Features
-   ================================== */
+   Assignment 3: Advanced Functionality
+   ====================================== */
 
-/* Theme colors */
+/* Theme Colors */
 :root {
   --background: #f7f4f2;
   --surface: #ffffff;
@@ -14,7 +14,7 @@
   --border: #dddddd;
 }
 
-/* Dark mode colors */
+/* Dark Mode Colors */
 body.dark {
   --background: #17151a;
   --surface: #28232b;
@@ -24,7 +24,7 @@ body.dark {
   --border: #554854;
 }
 
-/* General styling */
+/* General Styling */
 * {
   box-sizing: border-box;
 }
@@ -121,6 +121,7 @@ h1 {
 }
 
 #projects h2,
+#github-projects h2,
 #contact h2 {
   color: var(--accent);
   font-size: 2rem;
@@ -145,6 +146,7 @@ button:hover {
 }
 
 button:focus-visible,
+select:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 a:focus-visible {
@@ -152,7 +154,7 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
-/* Project filtering */
+/* Project Filtering */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -166,12 +168,38 @@ a:focus-visible {
   border-color: var(--accent);
 }
 
+/* Project Sorting */
+.sort-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.sort-container label {
+  margin: 0;
+  font-weight: bold;
+}
+
+#project-sort {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Project Grid */
 .projects-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 25px;
 }
 
+/* Project Cards */
 .project-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -186,8 +214,9 @@ a:focus-visible {
   box-shadow: 0 10px 25px #00000020;
 }
 
+/* IMPORTANT: Hide filtered-out projects */
 .project-card[hidden] {
-  display: none;
+  display: none !important;
 }
 
 .project-card h3 {
@@ -195,11 +224,18 @@ a:focus-visible {
   margin-top: 0;
 }
 
-#projects-status {
+.project-card a {
+  color: var(--accent);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#projects-status,
+#github-status {
   min-height: 1.5em;
 }
 
-/* Contact form */
+/* Contact Form */
 form {
   max-width: 650px;
   background: var(--surface);
@@ -254,7 +290,7 @@ footer p {
   color: white;
 }
 
-/* Mobile responsiveness */
+/* Mobile Responsiveness */
 @media (max-width: 700px) {
   nav {
     flex-wrap: wrap;
@@ -273,9 +309,18 @@ footer p {
   .projects-container {
     grid-template-columns: 1fr;
   }
+
+  .sort-container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  form {
+    padding: 20px;
+  }
 }
 
-/* Reduced motion accessibility */
+/* Reduced Motion Accessibility */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -288,3 +333,4 @@ footer p {
     animation: none !important;
   }
 }
+
